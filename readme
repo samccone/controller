@@ -1,0 +1,6 @@
+-- so very simple --
+
+new Controller({
+  debug: true
+  changeCallback: <do something>
+});
