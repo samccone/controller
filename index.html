@@ -1,0 +1,21 @@
+<html>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <body style="text-align: center">
+    <div id="ok" style='font-size:200px;display: inline-block;-webkit-transform-origin:50% 50%;'>^</div>
+    <script type="text/javascript" src="controller.js"></script>
+    <script>
+      var rotation = 0;
+      var elm = $('#ok');
+
+      new Controller({
+        debug: true,
+        changeCallback: doIt
+      });
+
+      function doIt(data) {
+        rotation -= data.x;
+        elm.css('-webkit-transform', 'rotate('+rotation+'deg)')
+      }
+    </script>
+  </body>
+</html>
