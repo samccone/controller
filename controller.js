@@ -2,7 +2,7 @@ window.Controller = function(options) {
   options = options || {};
   var settings = {
     debug: options.debug || false,
-    changeCallback: options.changeCallback || undefined
+    changeCallback: options.changeCallback || function(){}
   };
 
   var lastMotion = {};
@@ -17,6 +17,7 @@ window.Controller = function(options) {
   function onMotionChange(e) {
     lastMotion = normalizeAcceleration(e.accelerationIncludingGravity);
     settings.debug && outputDebug();
+    settings.changeCallback && settings.changeCallback(lastMotion);
   }
 
   function outputDebug() {
