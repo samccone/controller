@@ -11,7 +11,7 @@ window.Controller = function(options) {
 
   // returns if the current device supports orientation changes and device motion
   function supported() {
-    return !!(window.DeviceOrientationEvent && window.DeviceMotionEvent);
+    return !!(window.DeviceMotionEvent);
   }
 
   function onMotionChange(e) {
@@ -40,12 +40,13 @@ window.Controller = function(options) {
   }
 
   // inverts the Z axis
-  // uses Y for X and flips it depending on the orientation
+  // uses Y for X and flips it and inverts it depending on the orientation
+  // so it maps to left and right
   // -- this is basically emulating a steering wheel --
   function normalizeAcceleration(acceleration) {
     var isVertical = (window.orientation == 0 || window.orientation == 180);
     return {
-      x: (isVertical ? acceleration.x : acceleration.y),
+      x: (isVertical ? window.orientation ? acceleration.x : acceleration.x * -1 : window.orientation == -90 ? acceleration.y * -1 : acceleration.y),
       z: acceleration.z * -1,
       orientation: window.orientation
     }
