@@ -44,9 +44,10 @@ window.Controller = function(options) {
   // so it maps to left and right
   // -- this is basically emulating a steering wheel --
   function normalizeAcceleration(acceleration) {
-    var isVertical = (window.orientation == 0 || window.orientation == 180);
+    var flipAcceleration = (window.orientation == 90 || window.orientation == 180) ? 1 : -1;
+    var xDirection = (window.orientation == 0 || window.orientation == 180) ? acceleration.x : acceleration.y;
     return {
-      x: (isVertical ? window.orientation ? acceleration.x : acceleration.x * -1 : window.orientation == -90 ? acceleration.y * -1 : acceleration.y),
+      x: xDirection * flipAcceleration,
       z: acceleration.z * -1,
       orientation: window.orientation
     }
